@@ -4,7 +4,6 @@ import {
   TCategoryArgs,
   TCategoryContext,
   TCategoryParent,
-  TFilter,
   TProductArgs,
   TProductContext,
   TProductParent,
@@ -19,7 +18,9 @@ export const Query = {
     args: TProductArgs,
     { products, reviews }: TProductContext
   ) => {
-    let { onSale, avgRating } = args.filter as TFilter;
+    const onSale = args?.filter ? args.filter.onSale : undefined;
+    const avgRating = args?.filter ? args.filter.avgRating : undefined;
+
     let filteredProducts: any = products;
 
     if (onSale === true) {
@@ -28,7 +29,7 @@ export const Query = {
       });
     }
 
-    if ([1, 2, 3, 4, 5].includes(avgRating)) {
+    if ([1, 2, 3, 4, 5].includes(avgRating!)) {
       filteredProducts = filteredProducts.filter((product: IProduct) => {
         let sumRating = 0;
         let numberOfReviews = 0;
@@ -42,7 +43,7 @@ export const Query = {
 
         const avgProductRating = sumRating / numberOfReviews;
 
-        return avgProductRating >= avgRating;
+        return avgProductRating >= avgRating!;
       });
     }
 

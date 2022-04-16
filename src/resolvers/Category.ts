@@ -12,7 +12,8 @@ export const Category = {
     args: TProductArgs,
     { products, reviews }: TProductContext
   ) => {
-    const { onSale, avgRating } = args.filter as TFilter;
+    const onSale = args?.filter ? args.filter.onSale : undefined;
+    const avgRating = args?.filter ? args.filter.avgRating : undefined;
 
     const categoryProducts = products.filter(
       (product: IProduct) => product.categoryId === categoryId
@@ -27,7 +28,7 @@ export const Category = {
       );
     }
 
-    if ([1, 2, 3, 4, 5].includes(avgRating)) {
+    if ([1, 2, 3, 4, 5].includes(avgRating!)) {
       filteredCategoryProducts = filteredCategoryProducts.filter(
         (product: IProduct) => {
           let sumRating = 0;
@@ -42,7 +43,7 @@ export const Category = {
 
           const avgProductRating = sumRating / numberOfReviews;
 
-          return avgProductRating >= avgRating;
+          return avgProductRating >= avgRating!;
         }
       );
     }

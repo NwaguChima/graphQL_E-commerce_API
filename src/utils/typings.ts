@@ -1,6 +1,7 @@
 export type TProductContext = {
   products: [IProduct];
   reviews: [TReview];
+  categories: [TCategory];
 };
 
 export type TProductParent = {
@@ -11,6 +12,7 @@ export type TProductArgs = {
   id?: string;
   filter?: {
     onSale: boolean;
+    avgRating: number;
   };
 };
 
