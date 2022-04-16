@@ -18,6 +18,19 @@ export type TCategoryArgs = {
   id: string;
 };
 
+export type TReviewContext = {
+  reviews: [TReview];
+};
+
+export type TReview = {
+  id: string;
+  date: string;
+  title: string;
+  comment: string;
+  rating: number;
+  productId: string;
+};
+
 export type IProduct = {
   id: string;
   name: string;

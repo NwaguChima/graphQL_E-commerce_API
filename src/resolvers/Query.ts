@@ -1,7 +1,4 @@
-import { ApolloServer, gql } from 'apollo-server';
-// import { products, categories } from '../db';
 import {
-  IProduct,
   TCategory,
   TCategoryArgs,
   TCategoryContext,
