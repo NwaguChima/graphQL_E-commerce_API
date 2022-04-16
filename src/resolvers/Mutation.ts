@@ -6,6 +6,7 @@ import {
   TCategoryParent,
   TProductContext,
   TProductParent,
+  TReview,
 } from '../utils/typings';
 
 export const Mutation = {
@@ -25,6 +26,7 @@ export const Mutation = {
 
     return newCategory;
   },
+
   addProduct: (
     parent: TProductParent,
     args: { input: IProduct },
@@ -50,5 +52,26 @@ export const Mutation = {
     products.push(newProduct);
 
     return newProduct;
+  },
+
+  addReview: (
+    parent: TProductParent,
+    args: { input: TReview },
+    { reviews }: TProductContext
+  ) => {
+    const { date, title, comment, rating, productId } = args.input;
+
+    const newReview = {
+      id: uuid(),
+      date,
+      title,
+      comment,
+      rating,
+      productId,
+    };
+
+    reviews.push(newReview);
+
+    return newReview;
   },
 };
