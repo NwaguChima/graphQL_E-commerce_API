@@ -1,13 +1,15 @@
 export type TProductContext = {};
-export type TProductParent = {};
+export type TProductParent = {
+  id: string;
+};
 export type TProductArgs = {
-  id: String;
+  id: string;
 };
 
 export type TCategoryContext = {};
 export type TCategoryParent = {};
 export type TCategoryArgs = {
-  id: String;
+  id: string;
 };
 
 export type IProduct = {

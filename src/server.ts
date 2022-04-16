@@ -1,5 +1,6 @@
 import { ApolloServer, gql } from 'apollo-server';
 import {
+  IProduct,
   TCategoryArgs,
   TCategoryContext,
   TCategoryParent,
@@ -133,6 +134,7 @@ const typeDefs = gql`
     quantity: Int!
     price: Float!
     onSale: Boolean!
+    category: Category
   }
 
   type Category {
@@ -176,7 +178,21 @@ const resolvers = {
       parent: TProductParent,
       args: TProductArgs,
       context: TProductContext
-    ) => {},
+    ) => {
+      const categoryId = parent.id;
+      return products.filter((product) => product.categoryId === categoryId);
+    },
+  },
+
+  Product: {
+    category: (
+      parent: IProduct,
+      args: TProductArgs,
+      context: TProductContext
+    ) => {
+      const categoryId = parent.categoryId;
+      return categories.find((category) => category.id === categoryId);
+    },
   },
 };
 
