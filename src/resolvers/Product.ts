@@ -3,7 +3,6 @@ import {
   TCategory,
   TCategoryContext,
   TProductArgs,
-  TProductParent,
   TReview,
   TReviewContext,
 } from '../utils/typings';

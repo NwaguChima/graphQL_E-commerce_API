@@ -1,8 +1,10 @@
 import {
+  IProduct,
   TCategory,
   TCategoryArgs,
   TCategoryContext,
   TCategoryParent,
+  TFilter,
   TProductArgs,
   TProductContext,
   TProductParent,
@@ -15,10 +17,38 @@ export const Query = {
   products: (
     parent: TProductParent,
     args: TProductArgs,
-    { products }: TProductContext
+    { products, reviews }: TProductContext
   ) => {
-    return products;
+    let { onSale, avgRating } = args.filter as TFilter;
+    let filteredProducts: any = products;
+
+    if (onSale === true) {
+      filteredProducts = filteredProducts.filter((product: IProduct) => {
+        return product.onSale;
+      });
+    }
+
+    if ([1, 2, 3, 4, 5].includes(avgRating)) {
+      filteredProducts = filteredProducts.filter((product: IProduct) => {
+        let sumRating = 0;
+        let numberOfReviews = 0;
+
+        reviews.forEach((review) => {
+          if (review.productId === product.id) {
+            sumRating += review.rating;
+            numberOfReviews++;
+          }
+        });
+
+        const avgProductRating = sumRating / numberOfReviews;
+
+        return avgProductRating >= avgRating;
+      });
+    }
+
+    return filteredProducts;
   },
+
   product: (
     parent: TProductParent,
     { id: productId }: TProductArgs,
