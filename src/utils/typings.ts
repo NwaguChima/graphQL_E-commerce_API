@@ -26,6 +26,7 @@ export type TCategoryParent = {
 };
 export type TCategoryArgs = {
   id: string;
+  input: TCategory;
 };
 
 export type TReviewContext = {
@@ -53,8 +54,8 @@ export type IProduct = {
 };
 
 export type TCategory = {
-  id: string;
-  name: string;
+  id?: string;
+  name?: string;
 };
 
 export type TFilter = {

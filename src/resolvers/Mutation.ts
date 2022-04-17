@@ -116,4 +116,31 @@ export const Mutation = {
 
     return true;
   },
+  deleteReview: (
+    parent: TProductParent,
+    args: TProductArgs,
+    { db }: TProductContext
+  ) => {
+    const id = args.id;
+    db.reviews = db.reviews.filter((review) => review.id !== id);
+  },
+
+  updateCategory: (
+    parent: TProductParent,
+    args: TCategoryArgs,
+    { db }: TProductContext
+  ) => {
+    const { id, input } = args;
+
+    const index = db.categories.findIndex((category) => category.id === id);
+
+    if (index === -1) return;
+
+    db.categories[index] = {
+      ...db.categories[index],
+      ...input,
+    };
+
+    return db.categories[index];
+  },
 };
