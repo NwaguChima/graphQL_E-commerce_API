@@ -1,7 +1,9 @@
 export type TProductContext = {
-  products: [IProduct];
-  reviews: [TReview];
-  categories: [TCategory];
+  db: {
+    products: IProduct[];
+    reviews: TReview[];
+    categories: TCategory[];
+  };
 };
 
 export type TProductParent = {

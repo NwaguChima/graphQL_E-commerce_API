@@ -10,12 +10,12 @@ export const Category = {
   products: (
     { id: categoryId }: TCategoryParent,
     args: TProductArgs,
-    { products, reviews }: TProductContext
+    { db }: TProductContext
   ) => {
     const onSale = args?.filter ? args.filter.onSale : undefined;
     const avgRating = args?.filter ? args.filter.avgRating : undefined;
 
-    const categoryProducts = products.filter(
+    const categoryProducts = db.products.filter(
       (product: IProduct) => product.categoryId === categoryId
     );
     let filteredCategoryProducts = categoryProducts;
@@ -34,7 +34,7 @@ export const Category = {
           let sumRating = 0;
           let numberOfReviews = 0;
 
-          reviews.forEach((review) => {
+          db.reviews.forEach((review) => {
             if (review.productId === product.id) {
               sumRating += review.rating;
               numberOfReviews++;

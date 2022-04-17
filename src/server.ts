@@ -4,7 +4,7 @@ import { Query } from './resolvers/Query';
 import { Mutation } from './resolvers/Mutation';
 import { Product } from './resolvers/Product';
 import { Category } from './resolvers/Category';
-import { categories, products, reviews } from './db';
+import db from './db';
 
 const server: ApolloServer = new ApolloServer({
   typeDefs,
@@ -15,9 +15,7 @@ const server: ApolloServer = new ApolloServer({
     Category,
   },
   context: {
-    categories,
-    products,
-    reviews,
+    db,
   },
 });
 

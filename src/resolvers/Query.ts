@@ -16,12 +16,12 @@ export const Query = {
   products: (
     parent: TProductParent,
     args: TProductArgs,
-    { products, reviews }: TProductContext
+    { db }: TProductContext
   ) => {
     const onSale = args?.filter ? args.filter.onSale : undefined;
     const avgRating = args?.filter ? args.filter.avgRating : undefined;
 
-    let filteredProducts: any = products;
+    let filteredProducts: any = db.products;
 
     if (onSale === true) {
       filteredProducts = filteredProducts.filter((product: IProduct) => {
@@ -34,7 +34,7 @@ export const Query = {
         let sumRating = 0;
         let numberOfReviews = 0;
 
-        reviews.forEach((review) => {
+        db.reviews.forEach((review) => {
           if (review.productId === product.id) {
             sumRating += review.rating;
             numberOfReviews++;
@@ -53,23 +53,23 @@ export const Query = {
   product: (
     parent: TProductParent,
     { id: productId }: TProductArgs,
-    { products }: TProductContext
+    { db }: TProductContext
   ) => {
-    return products.find((product) => product.id === productId);
+    return db.products.find((product) => product.id === productId);
   },
 
   categories: (
     parent: TProductParent,
     args: TProductArgs,
-    { categories }: TCategoryContext
+    { db }: TProductContext
   ) => {
-    return categories;
+    return db.categories;
   },
   category: (
     parent: TCategoryParent,
     { id }: TCategoryArgs,
-    { categories }: TCategoryContext
+    { db }: TProductContext
   ) => {
-    return categories.find((category: TCategory) => category.id === id);
+    return db.categories.find((category: TCategory) => category.id === id);
   },
 };

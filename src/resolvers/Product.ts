@@ -3,6 +3,7 @@ import {
   TCategory,
   TCategoryContext,
   TProductArgs,
+  TProductContext,
   TReview,
   TReviewContext,
 } from '../utils/typings';
@@ -11,15 +12,13 @@ export const Product = {
   category: (
     { categoryId }: IProduct,
     args: TProductArgs,
-    { categories }: TCategoryContext
+    { db }: TProductContext
   ) => {
-    return categories.find((category: TCategory) => category.id === categoryId);
+    return db.categories.find(
+      (category: TCategory) => category.id === categoryId
+    );
   },
-  reviews: (
-    { id }: TReview,
-    args: TProductArgs,
-    { reviews }: TReviewContext
-  ) => {
-    return reviews.filter((review) => review.productId === id);
+  reviews: ({ id }: TReview, args: TProductArgs, { db }: TProductContext) => {
+    return db.reviews.filter((review) => review.productId === id);
   },
 };
