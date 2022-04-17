@@ -134,7 +134,7 @@ export const Mutation = {
 
     const index = db.categories.findIndex((category) => category.id === id);
 
-    if (index === -1) return;
+    if (index === -1) return null;
 
     db.categories[index] = {
       ...db.categories[index],
@@ -142,5 +142,43 @@ export const Mutation = {
     };
 
     return db.categories[index];
+  },
+
+  updateProduct: (
+    parent: TProductParent,
+    args: TProductArgs,
+    { db }: TProductContext
+  ) => {
+    const { id, input } = args;
+
+    const index = db.products.findIndex((product) => product.id === id);
+
+    if (index === -1) return null;
+
+    db.products[index] = {
+      ...db.products[index],
+      ...input,
+    };
+
+    return db.products[index];
+  },
+
+  updateReview: (
+    parent: TProductParent,
+    args: TCategoryArgs,
+    { db }: TProductContext
+  ) => {
+    const { id, input } = args;
+
+    const index = db.reviews.findIndex((review) => review.id === id);
+
+    if (index === -1) return null;
+
+    db.reviews[index] = {
+      ...db.reviews[index],
+      ...input,
+    };
+
+    return db.reviews[index];
   },
 };

@@ -16,6 +16,7 @@ export type TProductArgs = {
     onSale: boolean;
     avgRating: number;
   };
+  input?: IProduct;
 };
 
 export type TCategoryContext = {
